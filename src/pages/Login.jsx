@@ -10,9 +10,9 @@ const Login = () => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-700"
+      className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-700 bg-slate-50 p-4 rounded-md"
     >
-      <div className="inline-flex items-center gap-2 mb-2 mt-10">
+      <div className="inline-flex items-center gap-2 mb-2 mt-2">
         <p className="prata-regular text-3xl">{currentState}</p>
         <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
       </div>
