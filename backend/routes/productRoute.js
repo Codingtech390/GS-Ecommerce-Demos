@@ -6,11 +6,13 @@ import {
   removeSingleProductInfo,
   showSingleProductInfo,
 } from "../controllers/productController.js";
+import adminAuth from "../middleware/adminAuth.js";
 
 const productRouter = express.Router();
 
 productRouter.post(
   "/add",
+  adminAuth,
   upload.fields([
     { name: "image1", maxCount: 1 },
     { name: "image2", maxCount: 1 },
@@ -19,7 +21,8 @@ productRouter.post(
   ]),
   addNewProductInfo
 );
-productRouter.post("/remove", removeSingleProductInfo);
+productRouter.post("/remove", adminAuth, removeSingleProductInfo);
+
 productRouter.post("/single", showSingleProductInfo);
 productRouter.get("/list", listAllProductsInfo);
 
