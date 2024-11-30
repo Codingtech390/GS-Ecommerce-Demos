@@ -63,7 +63,16 @@ const addNewProductInfo = async (req, res) => {
 const showSingleProductInfo = async (req, res) => {};
 
 // List all products
-const listAllProductsInfo = async (req, res) => {};
+const listAllProductsInfo = async (req, res) => {
+  try {
+    const products = await productModel.find({});
+    res.json({ success: true, products });
+    
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 // Remove products
 const removeSingleProductInfo = async (req, res) => {};
