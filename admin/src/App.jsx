@@ -13,7 +13,9 @@ import Login from "./components/Login";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Global
 export const backendURL = import.meta.env.VITE_BACKEND_URL;
+export const currency = "$";
 
 const App = () => {
   const [token, setToken] = useState(
