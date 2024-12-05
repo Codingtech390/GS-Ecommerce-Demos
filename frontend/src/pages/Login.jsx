@@ -5,7 +5,7 @@ import { ShopContext } from "../context/ShopContext";
 import { useEffect } from "react";
 
 const Login = () => {
-  const [currentState, setCurrentState] = useState("Sign Up");
+  const [currentState, setCurrentState] = useState("Login");
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
