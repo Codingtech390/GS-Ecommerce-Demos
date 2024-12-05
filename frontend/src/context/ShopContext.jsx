@@ -44,6 +44,19 @@ const ShopContextProvider = (props) => {
     }
     setCartItems(cartData);
     toast.success("Product added to cart!");
+
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/api/cart/add",
+          { itemId, size },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.error(error);
+        toast.error(error.message);
+      }
+    }
   };
 
   const getCartCount = () => {
@@ -109,14 +122,11 @@ const ShopContextProvider = (props) => {
     // eslint-disable-next-line
   }, []);
 
-
   useEffect(() => {
-    if(!token && localStorage.getItem('token')){
-      setToken(localStorage.getItem('token'));
+    if (!token && localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
     }
   }, []);
-
-
 
   const value = {
     products,
