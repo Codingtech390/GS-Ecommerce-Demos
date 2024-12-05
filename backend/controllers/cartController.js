@@ -1,6 +1,8 @@
 // Add products to user's cart.
 
-const addToCart = async (req, res) => {};
+const addToCart = async (req, res) => {
+    
+};
 
 // Update user's cart.
 
