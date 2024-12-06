@@ -100,12 +100,11 @@ const ShopContextProvider = (props) => {
     let totalAmount = 0;
     for (const items in cartItems) {
       let itemInfo = products.find((product) => product._id === items);
-      
+
       if (!itemInfo) {
         console.log(`Product with ID ${items} not found.`);
         continue; // Skip to the next item if the product is not found
       }
-
 
       for (const item in cartItems[items]) {
         try {
@@ -143,7 +142,7 @@ const ShopContextProvider = (props) => {
         backendUrl + "/api/cart/get",
         {},
         { headers: { token } }
-      )
+      );
 
       if (response.data.success) {
         setCartItems(response.data.cartData);
@@ -175,6 +174,7 @@ const ShopContextProvider = (props) => {
     showSearch,
     setShowSearch,
     cartItems,
+    setCartItems,
     addToCart,
     getCartCount,
     updateQuantity,
