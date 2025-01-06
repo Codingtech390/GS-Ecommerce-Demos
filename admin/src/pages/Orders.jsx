@@ -29,6 +29,22 @@ const Orders = ({ token }) => {
     }
   };
 
+  const orderStatusHandler = async (event, orderId) => {
+    try {
+      const response = await axios.post(
+        backendURL + "/api/order/status",
+        { orderId, status: event.target.value },
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        await fetchAllOrders();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(response.data.message);
+    }
+  };
+
   useEffect(() => {
     fetchAllOrders();
   }, [token]);
@@ -38,7 +54,10 @@ const Orders = ({ token }) => {
       <h3>Order Page</h3>
       <div>
         {orders.map((order, index) => (
-          <div key={index} className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700">
+          <div
+            key={index}
+            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
+          >
             <img src={assets.parcel_icon} alt="parcelIcon" className="w-12" />
             <div>
               <div>
@@ -58,7 +77,9 @@ const Orders = ({ token }) => {
                   }
                 })}
               </div>
-              <p className="mt-3 mb-2 font-medium">{order.address.firstName + " " + order.address.lastName}</p>
+              <p className="mt-3 mb-2 font-medium">
+                {order.address.firstName + " " + order.address.lastName}
+              </p>
               <div>
                 <p>{order.address.street + ","}</p>
                 <p>
@@ -75,13 +96,22 @@ const Orders = ({ token }) => {
             </div>
 
             <div>
-                <p className="text-sm sm:text-[15px]">Items : {order.items.length}</p>
-                <p className="mt-3">Method: {order.paymentMethod}</p>
-                <p>Payment: {order.payment ? "Done" : "Pending"}</p>
-                <p>Date: {new Date(order.date).toLocaleDateString()}</p>
+              <p className="text-sm sm:text-[15px]">
+                Items : {order.items.length}
+              </p>
+              <p className="mt-3">Method: {order.paymentMethod}</p>
+              <p>Payment: {order.payment ? "Done" : "Pending"}</p>
+              <p>Date: {new Date(order.date).toLocaleDateString()}</p>
             </div>
-            <p className="text-sm sm:text-[15px]">{currency}{order.amount}</p>
-            <select className="p-2 font-semibold">
+            <p className="text-sm sm:text-[15px]">
+              {currency}
+              {order.amount}
+            </p>
+            <select
+              value={order.status}
+              className="p-2 font-semibold"
+              onChange={(event) => orderStatusHandler(event, order._id)}
+            >
               <option value="Order Placed">Order Placed</option>
               <option value="Packing">Packing</option>
               <option value="Shipped">Shipped</option>
