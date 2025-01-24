@@ -28,6 +28,7 @@ const Verify = () => {
         setCartItems({});
         navigate("/orders");
         toast.success("Payment Successful!");
+
       } else {
         navigate("/cart");
       }
